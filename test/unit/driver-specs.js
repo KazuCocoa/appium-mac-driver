@@ -20,6 +20,19 @@ describe('driver.js', function () {
     });
   });
 
+  describe('mergeCapabilitiesIntoCookies', function () {
+    it('should be blank', function () {
+      let driver = new MacDriver({foo: 'bar'});
+      driver.mergeCapabilitiesIntoCookies();
+      driver.opts.cookies.length.should.eq(0);
+    });
+    it('should have loopDelay', function () {
+      let driver = new MacDriver({loopDelay: 1.0});
+      driver.mergeCapabilitiesIntoCookies();
+      driver.opts.cookies[0].name.should.equal('loop_delay');
+    });
+  });
+
   describe('createSession', function () {
     it('should set sessionId', async function () {
       let driver = new MacDriver({app: 'myapp'}, false);
